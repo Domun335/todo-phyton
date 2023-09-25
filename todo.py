@@ -3,7 +3,7 @@ tasks = []
 
 
 def show_tasks():
-    task_index = 0
+    task_index = 1
 
     for task in tasks:
         print(task + ' [' + str(task_index) + ']')
@@ -18,15 +18,16 @@ def add_task():
 def delete_task():
     task_index = int(input("Podaj index zadania do usuniecia: "))
 
-    if task_index < 0 or task_index > len(tasks) - 1:
+    if task_index < 1 or task_index > len(tasks):
         print("Zadanie o tym indexie nie istnieje")
         return
-    tasks.pop(task_index)
+    tasks.pop(task_index - 1)
     print("Usunieto zadanie!")
 
 
 def save_tasks_to_file_and_exit():
-    file = open("tasks.txt", "w")
+    file_name = input("Jak nazwać plik zapisu? ")
+    file = open(file_name + ".txt", "w")
 
     for task in tasks:
         file.write(task + "\n")
@@ -34,13 +35,21 @@ def save_tasks_to_file_and_exit():
 
 
 def load_tasks_form_file():
-    try:
-        file = open("tasks.txt")
+    user_chose = input("Czy chcesz pobrać zadania? (tak/nie) ")
+    if user_chose == 'tak':
+        file_name = input("Z jakiego pliku txt pobrać zadania? ")
 
-        for line in file.readlines():
-            tasks.append(line.strip())
-        file.close()
-    except FileNotFoundError:
+        try:
+            file = open(file_name + '.txt')
+
+            for line in file.readlines():
+                tasks.append(line.strip())
+            file.close()
+            print("Udało sie pobrać dane!")
+
+        except FileNotFoundError:
+            print("Nie udało sie pobrać danych!")
+    else:
         return
 
 
