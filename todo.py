@@ -40,7 +40,7 @@ def load_tasks_form_file():
         file_name = input("Z jakiego pliku txt pobrać zadania? ")
 
         try:
-            file = open(file_name + '.txt')
+            file = open(file_name)
 
             for line in file.readlines():
                 tasks.append(line.strip())
